@@ -1,12 +1,21 @@
 {
   "name": "music-interval-calc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "Musical Interval Calculator",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "intervalic matrix",
+    "intervalic formula",
+    "intervalic vector"
+  ],
+  "author": "oscgones10",
+  "license": "ISC",
+  "homepage": "https://github.com/OscarGE/music-interval-calc.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OscarGE/music-interval-calc.gitr"
+  }
 }
