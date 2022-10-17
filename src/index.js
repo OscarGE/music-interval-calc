@@ -14,12 +14,14 @@ A 12x13 matrix (preIntervalMatrix) is created, a binary vector (input) and a vec
  */
 const interval_matrix = (input) => {
   var preIntervalMatrix = [[], [], [], [], [], [], [], [], [], [], [], [], []];
+  var preIntervalMatrixSort = [[], [], [], [], [], [], [], [], [], [], [], [], []];
   var intervalMatrix = [[], [], [], [], [], [], [], [], [], [], [], [], []];
   var intervalMatrixSort = [[], [], [], [], [], [], [], [], [], [], [], [], []];
   //Arrays are looped through and filled with the empty character
   for (let i = 0; i <= ROW; i++) {
     for (let j = 0; j <= COLUMN; j++) {
       preIntervalMatrix[i][j] = "";
+      preIntervalMatrixSort[i][j] = "";
       intervalMatrix[i][j] = "";
       if (j < 13) {
         intervalMatrixSort[i][j] = "";
@@ -118,13 +120,26 @@ const interval_matrix = (input) => {
       }
     }
   }
-  return intervalMatrixSort;
+  //Sort the pre matrix by reversing the columns 
+  for (let i = 0; i <= ROW; i++) {
+    for (let j = 0; j <= COLUMN ; j++) {
+      preIntervalMatrixSort[i][j] = preIntervalMatrix[i][COLUMN - j];
+    }
+  }
+
+  var intervalMatrixObject = new Object();
+  intervalMatrixObject.preIntervalMatrixSort = preIntervalMatrixSort;
+  intervalMatrixObject.intervalMatrixSort = intervalMatrixSort;
+  return intervalMatrixObject;
 };
 
 const intervalic_formula = (input) => {
   var intervalForm = new Array(FORMULA_ARR).fill("");
   var preIntervalForm = new Array(FORMULA_ARR - 1).fill("");
   var firstPreIntervalForm = FORMULA_ARR;
+  var squaredVector = new Array(FORMULA_ARR).fill("");
+  var combination = 0,
+    revCombination = 0;
   /*
   Calculate the pre-interval formula (preIntervalForm[11]) 
   The input binary vector is traversed, if a 1 is found (note activated) 
@@ -165,7 +180,20 @@ const intervalic_formula = (input) => {
       intervalForm[i] = INTERVALS.get(preIntervalForm[i]);
     }
   }
-  return intervalForm.reverse();
+  
+  for (let i = 0, j = FORMULA_ARR - 1; i < FORMULA_ARR; i++, j--) {
+    squaredVector[i] = input[i] * Math.pow(2, j);
+    combination += squaredVector[i];
+  }
+  revCombination = 4095 - combination; 
+
+  var intervalFormObject = new Object();
+  intervalFormObject.partition = preIntervalForm.reverse();
+  intervalFormObject.intervalForm = intervalForm.reverse();
+  intervalFormObject.squaredVector = squaredVector;
+  intervalFormObject.combination = combination;
+  intervalFormObject.revCombination = revCombination;
+  return intervalFormObject;
 }
 
 const intervalic_vector = (input) => {
